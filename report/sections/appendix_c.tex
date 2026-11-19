@@ -1,0 +1,86 @@
+% ---------------------------------------------------------------------------
+\section{API Request and Response Example}
+\label{app:api}
+% ---------------------------------------------------------------------------
+
+The request below was executed against the locally running API. The profile is
+deliberately partial: the required fields are the neighbourhood, the overall quality,
+the above-grade living area and the year built, and the optional fields supplied are
+the remodelling year, overall condition, lot area, basement area, first-floor area,
+bathrooms, bedrooms, rooms above grade and the garage.
+
+{\footnotesize
+\begin{verbatim}
+curl -s -X POST http://127.0.0.1:8000/predict \
+  -H "Content-Type: application/json" \
+  -d '{"neighborhood": "CollgCr", "overall_qual": 6,
+       "gr_liv_area": 1500, "year_built": 1975,
+       "year_remod_add": 2005, "overall_cond": 5, "lot_area": 9000,
+       "total_bsmt_sf": 800, "first_flr_sf": 900, "full_bath": 2,
+       "half_bath": 0, "bedroom_abv_gr": 3, "tot_rms_abv_grd": 7,
+       "garage_cars": 2, "garage_area": 480, "fireplaces": 0}'
+\end{verbatim}
+}
+
+The response contains the point estimate, both conformal intervals, the confidence
+classification and the assumptions applied to the omitted fields:
+
+{\footnotesize
+\begin{verbatim}
+{
+  "estimate": 146412.03,
+  "currency": "USD",
+  "interval_80": [130213.1, 164626.14],
+  "interval_90": [124164.33, 172646.02],
+  "confidence": "high",
+  "confidence_score": 0.6742,
+  "relative_interval_width_90": 0.3311,
+  "model": "Elastic net",
+  "model_version": "2026-11-19T13:20:58+00:00",
+  "assumptions": {
+    "sale_year": 2010,
+    "sale_month": 6,
+    "neighbourhood": "CollgCr",
+    "derived_context_fields": ["amenity_density_1_5km",
+      "amenity_score", "crime_index", "dist_hospital_km",
+      "dist_park_km", "dist_school_km", "dist_transit_km",
+      "neigh_lat", "neigh_lon", "park_area_ha",
+      "school_rating", "walk_score"]
+  },
+  "generated_at": "2026-11-19T13:50:47+00:00"
+}
+\end{verbatim}
+}
+
+The arithmetic of the confidence class connects the statistical output to the
+escalation policy. The 90 per cent interval half-width is
+$(172{,}646.02 - 146{,}412.03)/146{,}412.03 = 0.179$, just inside the 0.18 threshold
+for high confidence, and the score of 0.6742 follows the service's rule
+$1 - 0.179/0.55$. The full relative width of 0.3311 is the quantity stored for
+reporting and compared with the segment-level review thresholds recommended in
+Section~\ref{sec:recommendations}.
+
+{\footnotesize
+\begin{verbatim}
+[
+  {"feature": "total_sf", "contribution_log": -0.0366,
+   "direction": "decreases", "relative_effect_pct": 3.73},
+  {"feature": "tot_rms_abv_grd", "contribution_log": -0.0351,
+   "direction": "decreases", "relative_effect_pct": 3.57},
+  {"feature": "bsmt_fin_type1", "contribution_log": -0.0252,
+   "direction": "decreases", "relative_effect_pct": 2.55},
+  {"feature": "quality_condition_index", "contribution_log": -0.0212,
+   "direction": "decreases", "relative_effect_pct": 2.14}
+]
+\end{verbatim}
+}
+
+The explanation endpoint returns these local contributions for the same profile. All
+four are negative because the property is modest relative to the comparison sample:
+1,500 square feet of above-grade living area, a basement that the service defaults to
+an unfinished finish type, and a quality--condition index of 30 place it below the
+centre of its neighbourhood and vintage. The sign and magnitude are consistent with
+the global drivers in Figure~\ref{fig:shap}, which is what makes a local explanation
+useful to an agent: the attributes that drive the model globally also explain the
+individual valuation, so the estimate can be discussed in the language of the listing
+rather than the language of the model.

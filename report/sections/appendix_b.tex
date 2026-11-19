@@ -1,0 +1,69 @@
+% ---------------------------------------------------------------------------
+\section{Reproducibility and Artefact Map}
+\label{app:reproducibility}
+% ---------------------------------------------------------------------------
+
+The pipeline is deterministic. Every stage reads the previous stage's artefact and
+writes a new one under \texttt{artifacts/}; no stage depends on notebook state or a
+manual edit. The commands below are executed from the repository root, and the Python
+environment is managed by \texttt{uv} so that the lock file, rather than a
+hand-maintained list, defines the dependencies.
+
+\begin{verbatim}
+uv sync                                    # create the pinned environment
+make pipeline                              # data, cleaning, features, models,
+                                           # evaluation, monitoring, dictionary
+uv run pytest -q                           # unit and integration tests
+uv run ruff check src app scripts tests    # static checks
+cd report && latexmk -pdf -interaction=nonstopmode -halt-on-error main.tex
+
+# individual stages, when only one artefact needs regenerating
+uv run python scripts/01_generate_context.py
+uv run python scripts/02_clean_data.py
+uv run python scripts/03_build_features.py
+uv run python scripts/04_train_models.py
+uv run python scripts/05_run_evaluation.py
+uv run python scripts/06_run_monitoring.py
+uv run python scripts/07_export_data_dictionary.py
+
+# services (the console falls back to an in-process pipeline if the API is down)
+uv run uvicorn revaluation.api.main:app --host 127.0.0.1 --port 8000
+uv run streamlit run app/streamlit_app.py
+\end{verbatim}
+
+Table~\ref{tab:artefacts} maps the claims in this report to the artefact supporting
+them. A reader who wants to check a number can open the corresponding file; a reader
+who wants to re-derive it can re-run the stage that produces it.
+
+\begin{table}[htbp]
+\centering
+\caption{Artefact map: the evidence behind each part of the report. Paths are
+relative to the repository root.}
+\label{tab:artefacts}
+\small
+\begin{tabularx}{\linewidth}{@{}L{0.46\linewidth}>{\raggedright\arraybackslash}X@{}}
+\toprule
+\textbf{Artefact} & \textbf{Content used in this report} \\
+\midrule
+\path{artifacts/metrics/model_comparison.csv} & Out-of-fold benchmark of the eight families (Table~\ref{tab:benchmark}) \\
+\path{artifacts/metrics/training_summary.json} & Selected model, metrics, conformal quantiles, temporal holdout \\
+\path{artifacts/metrics/evaluation_diagnostics.json} & Residual tests, SHAP drivers, subgroup performance \\
+\path{artifacts/metrics/interval_coverage.csv} & Coverage and width by level and price band \\
+\path{artifacts/metrics/cleaning_report.json} & Missing counts, imputation state, outlier rules \\
+\path{artifacts/metrics/eda_summary.json} & Distributions, correlations, tiers, decades, VIF summary \\
+\path{artifacts/metrics/shap_importance.csv} & Global attribution by raw feature and family \\
+\path{artifacts/monitoring/monitoring_summary.json} & Reference vintage, window performance, drift, alerts \\
+\path{artifacts/monitoring/alerts.json} & Triggered rules and the retraining decision \\
+\path{artifacts/monitoring/monitoring_report.html} & Static monitoring dashboard \\
+\path{docs/data_dictionary.md} & Field-level data dictionary (Appendix~\ref{app:dictionary}) \\
+\path{artifacts/reports/ui_result.png} & Console screenshot (Figure~\ref{fig:console}) \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+Two practical notes complete the record. The base competition files are read from
+their original directory and never modified, so the pipeline can be re-run against a
+fresh download and will produce identical results. The generator and the model both
+use a fixed seed of 42; changing it changes the simulated context but not the
+structure of the analysis, and the monitoring thresholds and alert rules are
+independent of it.

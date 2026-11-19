@@ -1,0 +1,272 @@
+{
+  "selected_model": "elastic_net",
+  "prediction_error": {
+    "mean_error": -852.6706006747465,
+    "median_error": -837.8257913187917,
+    "p90_absolute_error": 29122.080043317954,
+    "max_absolute_error": 138114.83394683816,
+    "within_10k": 52.60631001371742,
+    "within_20k": 80.04115226337449,
+    "top5pct_error_share": 0.22096789911601725
+  },
+  "residual_diagnostics": {
+    "jarque_bera_stat": 2861.4785459675595,
+    "jarque_bera_pvalue": 0.0,
+    "breusch_pagan_lm": 131.8551591893577,
+    "breusch_pagan_pvalue": 1.609437004316312e-30,
+    "residual_mean": 852.6706006747465,
+    "residual_std": 20000.822190344894,
+    "log_residual_mean": -0.0005467333627704097,
+    "log_residual_std": 0.11115205349288029,
+    "skew_log_residual": -1.1408553993103836
+  },
+  "top_drivers": [
+    {
+      "feature": "tot_rms_abv_grd",
+      "mean_abs_shap": 0.06024114239699926,
+      "group": "Structural",
+      "share_pct": 8.615756794441216
+    },
+    {
+      "feature": "total_sf",
+      "mean_abs_shap": 0.043696275298799686,
+      "group": "Structural composites",
+      "share_pct": 6.249491059056682
+    },
+    {
+      "feature": "quality_condition_index",
+      "mean_abs_shap": 0.04309819194299744,
+      "group": "Structural",
+      "share_pct": 6.163952496350871
+    },
+    {
+      "feature": "avg_room_size",
+      "mean_abs_shap": 0.030379310319754903,
+      "group": "Structural",
+      "share_pct": 4.344883561021319
+    },
+    {
+      "feature": "age_at_sale",
+      "mean_abs_shap": 0.023311529783516683,
+      "group": "Age and renovation",
+      "share_pct": 3.334041539211535
+    },
+    {
+      "feature": "neigh_lat",
+      "mean_abs_shap": 0.021843864227356256,
+      "group": "Location",
+      "share_pct": 3.1241343398406536
+    },
+    {
+      "feature": "bsmt_fin_type1",
+      "mean_abs_shap": 0.0216068785812865,
+      "group": "Categorical",
+      "share_pct": 3.0902403828360763
+    },
+    {
+      "feature": "ms_zoning",
+      "mean_abs_shap": 0.021293439265469206,
+      "group": "Categorical",
+      "share_pct": 3.0454119349108857
+    },
+    {
+      "feature": "total_bath",
+      "mean_abs_shap": 0.018720978123330845,
+      "group": "Structural composites",
+      "share_pct": 2.6774956125783493
+    },
+    {
+      "feature": "overall_qual",
+      "mean_abs_shap": 0.01837648194087516,
+      "group": "Structural",
+      "share_pct": 2.6282253762157755
+    },
+    {
+      "feature": "neighborhood",
+      "mean_abs_shap": 0.016027182588017882,
+      "group": "Categorical",
+      "share_pct": 2.292225907145868
+    },
+    {
+      "feature": "year_built",
+      "mean_abs_shap": 0.015766348709595982,
+      "group": "Structural",
+      "share_pct": 2.2549211487894616
+    }
+  ],
+  "group_share_pct": {
+    "Structural": 42.79,
+    "Categorical": 28.57,
+    "Structural composites": 15.77,
+    "Age and renovation": 6.15,
+    "Location": 3.27,
+    "Neighbourhood amenities": 2.34,
+    "Macro-financial": 1.11
+  },
+  "top_coefficients": [
+    {
+      "encoded_feature": "ms_zoning_infrequent_sklearn",
+      "coefficient": -0.26840360679128555,
+      "abs_coef": 0.26840360679128555
+    },
+    {
+      "encoded_feature": "tot_rms_abv_grd",
+      "coefficient": 0.07242701637370941,
+      "abs_coef": 0.07242701637370941
+    },
+    {
+      "encoded_feature": "functional_infrequent_sklearn",
+      "coefficient": -0.07135647607941978,
+      "abs_coef": 0.07135647607941978
+    },
+    {
+      "encoded_feature": "neighborhood_Crawfor",
+      "coefficient": 0.06820173662088015,
+      "abs_coef": 0.06820173662088015
+    },
+    {
+      "encoded_feature": "quality_condition_index",
+      "coefficient": 0.057118510854827775,
+      "abs_coef": 0.057118510854827775
+    },
+    {
+      "encoded_feature": "total_sf",
+      "coefficient": 0.05547593945039064,
+      "abs_coef": 0.05547593945039064
+    },
+    {
+      "encoded_feature": "exterior1st_BrkFace",
+      "coefficient": 0.054430334187191926,
+      "abs_coef": 0.054430334187191926
+    },
+    {
+      "encoded_feature": "neighborhood_StoneBr",
+      "coefficient": 0.05119286812479629,
+      "abs_coef": 0.05119286812479629
+    },
+    {
+      "encoded_feature": "ms_sub_class_1Fam_1Story_1945-",
+      "coefficient": -0.047304333951451956,
+      "abs_coef": 0.047304333951451956
+    },
+    {
+      "encoded_feature": "bsmt_exposure_Gd",
+      "coefficient": 0.046364886390290294,
+      "abs_coef": 0.046364886390290294
+    },
+    {
+      "encoded_feature": "kitchen_qual_Ex",
+      "coefficient": 0.04516240763698278,
+      "abs_coef": 0.04516240763698278
+    },
+    {
+      "encoded_feature": "bsmt_qual_Ex",
+      "coefficient": 0.043364287352304985,
+      "abs_coef": 0.043364287352304985
+    },
+    {
+      "encoded_feature": "bsmt_fin_type1_Unf",
+      "coefficient": -0.04197347211669753,
+      "abs_coef": 0.04197347211669753
+    },
+    {
+      "encoded_feature": "functional_Typ",
+      "coefficient": 0.03984970584871017,
+      "abs_coef": 0.03984970584871017
+    },
+    {
+      "encoded_feature": "avg_room_size",
+      "coefficient": 0.03925478634635635,
+      "abs_coef": 0.03925478634635635
+    },
+    {
+      "encoded_feature": "land_slope_Sev",
+      "coefficient": -0.03703162513139789,
+      "abs_coef": 0.03703162513139789
+    },
+    {
+      "encoded_feature": "condition1_Norm",
+      "coefficient": 0.034789281229264314,
+      "abs_coef": 0.034789281229264314
+    },
+    {
+      "encoded_feature": "garage_type_infrequent_sklearn",
+      "coefficient": -0.0339258949602303,
+      "abs_coef": 0.0339258949602303
+    },
+    {
+      "encoded_feature": "ms_zoning_RM",
+      "coefficient": -0.03305351121058073,
+      "abs_coef": 0.03305351121058073
+    },
+    {
+      "encoded_feature": "condition1_Artery",
+      "coefficient": -0.0318515206034584,
+      "abs_coef": 0.0318515206034584
+    }
+  ],
+  "segment_performance": [
+    {
+      "neighbourhood_segment": "established",
+      "n": 926,
+      "mae": 12892.13,
+      "bias": 0.54,
+      "median_price": 175000.0
+    },
+    {
+      "neighbourhood_segment": "premium",
+      "n": 143,
+      "mae": 23035.13,
+      "bias": 0.08,
+      "median_price": 306000.0
+    },
+    {
+      "neighbourhood_segment": "value",
+      "n": 389,
+      "mae": 11581.22,
+      "bias": 1.34,
+      "median_price": 125000.0
+    }
+  ],
+  "business_metrics": {
+    "rmse": 20018.98937117076,
+    "mae": 13537.19500033221,
+    "mape": 7.979796424228026,
+    "r2": 0.9365397119921259,
+    "median_ae": 9355.715129250988,
+    "rmse_log": 0.11115339811743989,
+    "n": 1458,
+    "within_tolerance_usd": 69.68449931412894,
+    "within_tolerance_pct": 64.88340192043896,
+    "over_valuation_rate": 48.010973936899866,
+    "mean_asymmetric_cost": 16708.32610024658,
+    "median_asymmetric_cost": 11358.059215922927,
+    "total_asymmetric_cost": 24360739.454159513
+  },
+  "error_by_price_band": {
+    "entry (<130k)": {
+      "n": 365,
+      "rmse": 14520.959324964637,
+      "mae": 10295.440705738409,
+      "bias_pct": 4.70438892798402
+    },
+    "mid (130k-200k)": {
+      "n": 658,
+      "rmse": 15413.348160551486,
+      "mae": 10972.920324017667,
+      "bias_pct": 0.08346081611340891
+    },
+    "upper (200k-300k)": {
+      "n": 320,
+      "rmse": 21863.881834433283,
+      "mae": 16146.501109252757,
+      "bias_pct": -0.9129004229980378
+    },
+    "luxury (>=300k)": {
+      "n": 115,
+      "rmse": 41499.4415302021,
+      "mae": 31237.674128046423,
+      "bias_pct": -3.9237139491319533
+    }
+  }
+}

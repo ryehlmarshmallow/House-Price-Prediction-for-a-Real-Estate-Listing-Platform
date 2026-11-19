@@ -1,0 +1,121 @@
+% ---------------------------------------------------------------------------
+\section{Pricing Strategy, Limitations and Future Work}
+\label{sec:recommendations}
+% ---------------------------------------------------------------------------
+
+\subsection{From model output to pricing policy}
+
+The model should be used as a pricing anchor with an explicit range, not as a single
+authoritative number. The 80 per cent interval is the natural object to show an
+agent: at the median listing it spans roughly a quarter of the estimate, wide enough
+to contain a normal negotiation but narrow enough to be informative. The point
+estimate should be presented as the centre of that range, and the 90 per cent interval
+should drive the escalation decision, because it is the interval whose coverage the
+monitoring layer tracks.
+
+The subgroup results imply that a single review threshold is the wrong policy. The
+entry band is over-predicted by 4.70 per cent, so a first-time buyer is likely to see
+a price above what the property eventually achieves; a conservative adjustment of the
+published anchor in that band, or automatic review of entry-band estimates, would
+reduce the reputational cost of systematic generosity. The luxury band is
+under-predicted by 3.92 per cent with a mean absolute error of 31,238 \USD, more than
+three times the entry-band error, so luxury estimates should be routed to a valuer by
+default regardless of their nominal confidence. The premium neighbourhood segment
+shows almost no bias ($+0.08$ per cent) but a mean absolute error of 23,035 \USD: it
+is unbiased on average and unreliable in individual cases, which is exactly the
+situation in which a wide interval rather than a point estimate should drive the
+conversation.
+
+The confidence classes already implement part of this policy. An estimate whose 90
+per cent half-width is at most 18 per cent of the point estimate is high confidence
+and may be published directly; between 18 and 30 per cent it is moderate and should
+be reviewed for high-value listings; above 30 per cent it is low and must be
+reviewed. The segment rules should be layered on top of the class rather than
+replacing it, because the two capture different risks: the class captures uncertainty
+about the individual property, the segment captures known bias in part of the market.
+
+Two further recommendations follow. The interval width is itself a commercial signal:
+a wide interval indicates a heterogeneous micro-market or an unusual property, and it
+can be shown to the agent as a prompt to request an appraisal rather than as a defect.
+And the model should not be used to advise on renovation: renovation accounts for
+6.21 per cent of explanation mass, but the synthetic variables are constructed from
+the assessor's remodelling year and the coefficients reflect that construction, so a
+claim that a kitchen refurbishment adds a specific percentage to value is not
+supported. Finally, the economics should be stated in business units: at the observed
+mean asymmetric cost of 16,708 \USD{} per listing, every 1,000 valuations carry
+roughly 16.7 million \USD{} of weighted pricing error. That is a historical average
+rather than a forecast of savings, but it makes clear that a one-point improvement in
+the tolerance hit rate is worth more than a small reduction in mean absolute error.
+
+\subsection{Limitations}
+
+The most important limitation is the sample. With 1,458 transactions and 25
+neighbourhoods, the model cannot estimate fine interactions, and the luxury band rests
+on 115 sales. Comparing eight families mitigates the risk of a poorly suited
+specification, but it cannot create information the sample does not contain.
+
+The second is the synthetic context. The amenity, renovation, marketing and macro
+variables encode documented assumptions, and their coefficients measure those
+assumptions as much as the Ames market. The realism checks in Section~\ref{sec:data}
+show that the generated fields behave plausibly, but plausibility is not validation
+against an external source. A production system would replace them with licensed
+amenity data, county deed records and a live macro feed, and the model would have to be
+re-estimated on those inputs.
+
+The third concerns the error distribution. Log residuals are left-skewed and
+heteroscedastic, and the worst five per cent of cases account for 22.1 per cent of
+total absolute error, so a single global conformal quantile cannot be correct across
+the price range; the entry band under-covers by 8.2 percentage points.
+
+The fourth is temporal. The sample covers a single housing cycle and the model has
+never observed a high-interest-rate regime. The replay shows that when the macro
+context moves outside the reference window, coverage collapses even though accuracy
+holds; after a structural break the model would need recalibration before it could be
+trusted, and the retraining policy is the mechanism for doing so.
+
+Two methodological caveats belong here as well. The reported out-of-fold metrics are
+computed on the same predictions used to select the model, so they are optimistically
+biased by a small amount; the temporal holdout is the independent check and shows an
+11 per cent degradation in root mean squared error. The conformal coverage figures
+are likewise measured on the calibration residuals, with the monitoring replay as the
+independent evidence. Neither caveat undermines the conclusions, but both separate an
+honest evaluation from a flattering one.
+
+\subsection{Future work}
+
+Table~\ref{tab:future} lists the extensions the team considers most valuable, in
+priority order. The first two address defects in the released system; the remainder
+extend its scope. The ranking is by expected business value per unit of effort, not by
+methodological novelty.
+
+\begin{table}[htbp]
+\centering
+\caption{Prioritised future work, with the defect or opportunity it addresses and the
+expected benefit.}
+\label{tab:future}
+\small
+\begin{tabularx}{\linewidth}{@{}L{0.042\linewidth}L{0.30\linewidth}L{0.26\linewidth}X@{}}
+\toprule
+\textbf{No.} & \textbf{Extension} & \textbf{Addresses} & \textbf{Expected benefit} \\
+\midrule
+1 & Segment-conditional conformal calibration or conformalised quantile regression & Entry and luxury under-coverage & Correct coverage within price bands, not only on average \\
+2 & Train on the asymmetric loss (expectile regression or weighted objective) & Loss is reported but not optimised & Align the estimate with the 1.5:1 business cost \\
+3 & Public deployment with authentication, rate limiting and health checks & No live URL; open CORS in the demonstration build & Satisfies the deployment criterion; protects the service \\
+4 & Replace synthetic context with licensed amenity, deed and macro feeds & Coefficients reflect simulated assumptions & External validity and defensible driver analysis \\
+5 & Spatial comparable-sales features and sub-neighbourhood location & Location is represented only by indicators and centroid latitude & Sharper pricing in heterogeneous neighbourhoods \\
+6 & Automated retraining with shadow evaluation and promotion gates & Manual retraining decision & Faster recovery after drift, with controlled risk \\
+7 & Data-quality monitoring for late, duplicated or malformed listings & The replay assumes a clean feed & Detects operational failures before they reach the model \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+The first item is the most consequential. The current intervals are honest on average
+and wrong in the tails, and the entry band is where the product is most likely to be
+used by people least able to absorb a pricing error. Mondrian conformal prediction,
+which calibrates within each price band, or conformalised quantile regression, which
+adapts interval width to the local error scale, would fix the defect with modest
+implementation effort and no change to the point estimator
+\citep{romano2019cqr,angelopoulos2023conformal}. The second item is conceptually simple
+but requires care: optimising the asymmetric loss directly will push predictions
+downward, and the resulting model must be evaluated on coverage and tolerance as well
+as on weighted cost, or it will simply learn to under-quote.

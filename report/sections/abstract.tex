@@ -1,0 +1,31 @@
+% ---------------------------------------------------------------------------
+% Abstract
+% ---------------------------------------------------------------------------
+\section*{Abstract}
+\addcontentsline{toc}{section}{Abstract}
+
+Listing platforms must price a property long before a formal appraisal exists. An
+inflated estimate deters buyers; a depressed one transfers value away from the seller
+and erodes trust in the platform. This report documents an end-to-end valuation
+product that answers one operational question: given a property's structural,
+locational and market-context characteristics at listing time, what is its estimated
+market price, and how confident is that estimate? The analytical base is the Kaggle
+Ames, Iowa sample of 1,460 transactions completed between 2006 and 2010
+\citep{decock2011,kaggle2016}, extended with 21 synthetic contextual fields covering
+amenities, renovation, marketing duration and macro-financial conditions.
+
+Eight regression families are compared under identical five-fold cross-validation.
+An elastic net on the logarithm of price is selected with an out-of-fold root mean
+squared error of 20,019 \USD, a mean absolute error of 13,537 \USD, a mean absolute
+percentage error of 7.98 per cent and an $R^2$ of 0.9365. Split-conformal intervals
+achieve 80.1 and 90.1 per cent empirical coverage at their nominal levels, and a
+temporal holdout on 2010 sales reproduces 92.3 per cent of price variance. A replay
+of the 2009--2010 stream shows macro-financial drift eroding 90 per cent interval
+coverage from 89.1 to 79.7 per cent, which triggers the retraining policy.
+
+The system is delivered as a FastAPI service and a Streamlit valuation console,
+containerised and configured for Render and Hugging Face Spaces, and verified end to
+end on a local machine. No public URL is claimed, because the cloud credentials
+needed to provision one were unavailable to the team. The report closes with
+pricing-strategy recommendations, the limitations of a small and partly simulated
+sample, and a prioritised agenda for future work.

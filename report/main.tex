@@ -1,0 +1,129 @@
+% ---------------------------------------------------------------------------
+% House Price Prediction for a Real Estate Listing Platform
+% Business Analytics - Group Project
+% Build: latexmk -pdf -interaction=nonstopmode -halt-on-error main.tex
+% ---------------------------------------------------------------------------
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{newtxtext,newtxmath}
+\usepackage{microtype}
+\usepackage[a4paper,left=2.35cm,right=2.35cm,top=2.3cm,bottom=2.35cm,headheight=15pt,footskip=1.0cm]{geometry}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{makecell}
+\usepackage{threeparttable}
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usepackage[font=small,labelfont=bf,skip=5pt]{caption}
+\usepackage{subcaption}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{titlesec}
+\usepackage{float}
+\usepackage{placeins}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage[colorlinks=true,linkcolor=black,citecolor=black,urlcolor=blue!55!black,bookmarksnumbered=true,pdftitle={House Price Prediction for a Real Estate Listing Platform},pdfsubject={Business Analytics Group Project},pdfkeywords={house price prediction, hedonic regression, conformal prediction, concept drift, monitoring}]{hyperref}
+
+\graphicspath{{figures/}}
+
+% ---------------------------------------------------------------------------
+% Typographic settings
+% ---------------------------------------------------------------------------
+\setlength{\parindent}{1.15em}
+\setlength{\parskip}{0.15em plus 0.05em}
+\raggedbottom
+% Float placement: allow dense pages rather than half-empty float pages
+\renewcommand{\topfraction}{0.9}
+\renewcommand{\bottomfraction}{0.8}
+\renewcommand{\textfraction}{0.07}
+\renewcommand{\floatpagefraction}{0.78}
+\setcounter{topnumber}{4}
+\setcounter{bottomnumber}{2}
+\setcounter{totalnumber}{5}
+\linespread{0.96}
+\renewcommand{\arraystretch}{1.12}
+\setlength{\tabcolsep}{4.5pt}
+
+\titleformat{\section}
+  {\normalfont\large\bfseries}{\thesection}{0.7em}{}
+\titlespacing*{\section}{0pt}{1.6ex plus 0.4ex}{0.9ex}
+\titleformat{\subsection}
+  {\normalfont\normalsize\bfseries}{\thesubsection}{0.6em}{}
+\titlespacing*{\subsection}{0pt}{1.3ex plus 0.3ex}{0.6ex}
+\titleformat{\subsubsection}
+  {\normalfont\normalsize\itshape}{\thesubsubsection}{0.6em}{}
+
+\captionsetup[table]{position=top,justification=justified,singlelinecheck=false,skip=3pt}
+\setlength{\abovecaptionskip}{3pt}
+\setlength{\belowcaptionskip}{2pt}
+\captionsetup[figure]{position=bottom,justification=justified,singlelinecheck=false}
+
+% ---------------------------------------------------------------------------
+% Running headers
+% ---------------------------------------------------------------------------
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\itshape House Price Prediction for a Real Estate Listing Platform}
+\fancyhead[R]{\small\thepage\ of \pageref{LastPage}}
+\fancyfoot[C]{\small\itshape Business Analytics --- Group Project}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
+\fancypagestyle{plain}{%
+  \fancyhf{}%
+  \fancyhead[L]{\small\itshape House Price Prediction for a Real Estate Listing Platform}%
+  \fancyhead[R]{\small\thepage\ of \pageref{LastPage}}%
+  \fancyfoot[C]{\small\itshape Business Analytics --- Group Project}%
+  \renewcommand{\headrulewidth}{0.4pt}%
+}
+
+% Shorthand for code-like feature names in running text.
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcommand{\f}[1]{\texttt{#1}}
+\newcommand{\USD}{USD}
+
+\begin{document}
+
+\input{sections/titlepage}
+\setcounter{page}{2}
+
+\input{sections/abstract}
+
+\clearpage
+\setcounter{tocdepth}{1}
+\tableofcontents
+\clearpage
+
+\input{sections/01_executive}
+\input{sections/02_business}
+\input{sections/03_data}
+\input{sections/04_eda}
+\input{sections/05_cleaning}
+\input{sections/06_features}
+\input{sections/07_models}
+\input{sections/08_deployment}
+\input{sections/09_monitoring}
+\input{sections/10_recommendations}
+\input{sections/11_conclusion}
+
+\clearpage
+\appendix
+\input{sections/appendix_a}
+\input{sections/appendix_b}
+\input{sections/appendix_c}
+
+\clearpage
+\addcontentsline{toc}{section}{References}
+\begingroup
+\small
+\setlength{\bibsep}{2.6pt}
+\bibliographystyle{plainnat}
+\bibliography{references}
+\endgroup
+
+\end{document}

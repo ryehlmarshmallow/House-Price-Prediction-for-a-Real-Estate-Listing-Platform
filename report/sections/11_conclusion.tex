@@ -1,0 +1,33 @@
+% ---------------------------------------------------------------------------
+\section{Conclusion}
+\label{sec:conclusion}
+% ---------------------------------------------------------------------------
+
+This project set out to answer a practical question for a listing platform: what is a
+property worth at the moment it is listed, and how much confidence should anyone place
+in that number? The answer delivered here is an elastic net on the logarithm of sale
+price, trained on 1,458 cleaned Ames transactions and 21 documented synthetic
+contextual fields, wrapped in split-conformal intervals, exposed through an API and a
+Streamlit console, and monitored by a replay of the 2009--2010 market. The model
+explains 93.7 per cent of out-of-fold price variance, prices a typical property within
+13,537 \USD{} of its realised value, and meets every accuracy, tolerance and
+calibration target set at the start of the project.
+
+Three conclusions are more useful than the headline metrics. First, on a small and
+well-measured tabular sample, a regularised linear model can beat gradient-boosted
+trees, and the benchmark shows the margin clearly. Second, accuracy and calibration
+are separate properties that can fail independently: the replay shows a model that
+stays within its accuracy tolerance while its 90 per cent interval covers only 79.7
+per cent of sales by the final window, and the retraining policy fires on the coverage
+rule rather than on the accuracy rule. Third, aggregate metrics conceal commercially
+important heterogeneity: the entry band is over-predicted by 4.7 per cent and the
+luxury band under-predicted by 3.9 per cent, and a single review threshold would treat
+both incorrectly.
+
+The system is verified locally and complete in its configuration, but it is not
+publicly deployed, because the cloud account credentials needed to provision a URL
+were unavailable to the team. That gap is stated once, here and in
+Section~\ref{sec:deployment}, and it is the only deliverable that is not closed. The
+analytical work behind the model, the evidence in the artefacts and the monitoring
+policy are complete, reproducible from the repository, and ready to be operated by
+whoever holds the account.

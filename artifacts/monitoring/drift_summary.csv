@@ -1,0 +1,5 @@
+window,n_features,n_drifted,share_drifted,max_psi,mean_psi,top_drifted,prediction_psi
+W1 2009-01 to 2009-06,43,7,0.16279069767441862,8.9258,1.0371162790697674,"['hpi_yoy_pct', 'mortgage_rate_pct', 'hpi_index', 'local_unemployment_pct', 'months_supply', 'neighborhood']",0.0655
+W2 2009-06 to 2009-09,43,6,0.13953488372093023,8.9258,1.0477720930232557,"['hpi_yoy_pct', 'mortgage_rate_pct', 'hpi_index', 'local_unemployment_pct', 'months_supply', 'neighborhood']",0.0327
+W3 2009-09 to 2010-04,43,5,0.11627906976744186,8.9258,1.0339023255813953,"['hpi_yoy_pct', 'mortgage_rate_pct', 'hpi_index', 'local_unemployment_pct', 'months_supply']",0.0967
+W4 2010-04 to 2010-07,43,6,0.13953488372093023,8.8569,0.9985744186046511,"['mortgage_rate_pct', 'hpi_index', 'local_unemployment_pct', 'hpi_yoy_pct', 'months_supply', 'neighborhood']",0.1738

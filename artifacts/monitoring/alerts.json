@@ -1,0 +1,141 @@
+{
+  "observed": [
+    {
+      "window": "W1 2009-01 to 2009-06",
+      "rule": "R1 input drift",
+      "severity": "warning",
+      "value": 7,
+      "threshold": ">= 3 features with PSI >= 0.2",
+      "detail": "hpi_yoy_pct, mortgage_rate_pct, hpi_index, local_unemployment_pct, months_supply",
+      "action": "Review the drifting inputs for data-pipeline or market-structure causes."
+    },
+    {
+      "window": "W2 2009-06 to 2009-09",
+      "rule": "R1 input drift",
+      "severity": "warning",
+      "value": 6,
+      "threshold": ">= 3 features with PSI >= 0.2",
+      "detail": "hpi_yoy_pct, mortgage_rate_pct, hpi_index, local_unemployment_pct, months_supply",
+      "action": "Review the drifting inputs for data-pipeline or market-structure causes."
+    },
+    {
+      "window": "W3 2009-09 to 2010-04",
+      "rule": "R1 input drift",
+      "severity": "warning",
+      "value": 5,
+      "threshold": ">= 3 features with PSI >= 0.2",
+      "detail": "hpi_yoy_pct, mortgage_rate_pct, hpi_index, local_unemployment_pct, months_supply",
+      "action": "Review the drifting inputs for data-pipeline or market-structure causes."
+    },
+    {
+      "window": "W3 2009-09 to 2010-04",
+      "rule": "R4 interval coverage",
+      "severity": "warning",
+      "value": 0.836,
+      "threshold": "coverage < 0.85",
+      "detail": "The 90% conformal interval under-covers the realised sales.",
+      "action": "Recalibrate the conformal quantiles on recent residuals."
+    },
+    {
+      "window": "W4 2010-04 to 2010-07",
+      "rule": "R1 input drift",
+      "severity": "warning",
+      "value": 6,
+      "threshold": ">= 3 features with PSI >= 0.2",
+      "detail": "mortgage_rate_pct, hpi_index, local_unemployment_pct, hpi_yoy_pct, months_supply",
+      "action": "Review the drifting inputs for data-pipeline or market-structure causes."
+    },
+    {
+      "window": "W4 2010-04 to 2010-07",
+      "rule": "R4 interval coverage",
+      "severity": "warning",
+      "value": 0.797,
+      "threshold": "coverage < 0.85",
+      "detail": "The 90% conformal interval under-covers the realised sales.",
+      "action": "Recalibrate the conformal quantiles on recent residuals."
+    },
+    {
+      "window": "policy",
+      "rule": "R7 sustained coverage erosion",
+      "severity": "critical",
+      "value": 0.85,
+      "threshold": "coverage < 0.85 for 2 consecutive windows",
+      "detail": "The calibrated uncertainty no longer matches the realised error distribution.",
+      "action": "Recalibrate conformal quantiles and retrain if the erosion persists."
+    }
+  ],
+  "stress": [
+    {
+      "window": "W1 2009-01 to 2009-06",
+      "rule": "R1 input drift",
+      "severity": "warning",
+      "value": 10,
+      "threshold": ">= 3 features with PSI >= 0.2",
+      "detail": "hpi_yoy_pct, hpi_index, local_unemployment_pct, months_supply, mortgage_rate_pct",
+      "action": "Review the drifting inputs for data-pipeline or market-structure causes."
+    },
+    {
+      "window": "W2 2009-06 to 2009-09",
+      "rule": "R1 input drift",
+      "severity": "warning",
+      "value": 12,
+      "threshold": ">= 3 features with PSI >= 0.2",
+      "detail": "hpi_yoy_pct, hpi_index, local_unemployment_pct, months_supply, mortgage_rate_pct",
+      "action": "Review the drifting inputs for data-pipeline or market-structure causes."
+    },
+    {
+      "window": "W3 2009-09 to 2010-04",
+      "rule": "R1 input drift",
+      "severity": "warning",
+      "value": 6,
+      "threshold": ">= 3 features with PSI >= 0.2",
+      "detail": "hpi_yoy_pct, hpi_index, local_unemployment_pct, months_supply, mortgage_rate_pct",
+      "action": "Review the drifting inputs for data-pipeline or market-structure causes."
+    },
+    {
+      "window": "W3 2009-09 to 2010-04",
+      "rule": "R4 interval coverage",
+      "severity": "warning",
+      "value": 0.836,
+      "threshold": "coverage < 0.85",
+      "detail": "The 90% conformal interval under-covers the realised sales.",
+      "action": "Recalibrate the conformal quantiles on recent residuals."
+    },
+    {
+      "window": "W4 2010-04 to 2010-07",
+      "rule": "R1 input drift",
+      "severity": "warning",
+      "value": 6,
+      "threshold": ">= 3 features with PSI >= 0.2",
+      "detail": "mortgage_rate_pct, hpi_index, local_unemployment_pct, hpi_yoy_pct, months_supply",
+      "action": "Review the drifting inputs for data-pipeline or market-structure causes."
+    },
+    {
+      "window": "W4 2010-04 to 2010-07",
+      "rule": "R4 interval coverage",
+      "severity": "warning",
+      "value": 0.812,
+      "threshold": "coverage < 0.85",
+      "detail": "The 90% conformal interval under-covers the realised sales.",
+      "action": "Recalibrate the conformal quantiles on recent residuals."
+    },
+    {
+      "window": "W4 2010-04 to 2010-07",
+      "rule": "R5 systematic bias",
+      "severity": "warning",
+      "value": -5.23,
+      "threshold": "|bias| > 5 percent",
+      "detail": "Predictions are systematically shifted relative to realised prices.",
+      "action": "Verify the macro-context feed and the recorded sale dates."
+    },
+    {
+      "window": "policy",
+      "rule": "R7 sustained coverage erosion",
+      "severity": "critical",
+      "value": 0.85,
+      "threshold": "coverage < 0.85 for 2 consecutive windows",
+      "detail": "The calibrated uncertainty no longer matches the realised error distribution.",
+      "action": "Recalibrate conformal quantiles and retrain if the erosion persists."
+    }
+  ]
+}

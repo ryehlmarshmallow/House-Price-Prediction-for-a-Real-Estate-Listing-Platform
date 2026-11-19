@@ -1,0 +1,146 @@
+% ---------------------------------------------------------------------------
+\section{Business Understanding and the KPI Framework}
+\label{sec:business}
+% ---------------------------------------------------------------------------
+
+\subsection{The valuation problem}
+
+A listing platform intermediates between sellers who want a defensible asking price
+and buyers who want to know whether that price is reasonable. Neither party
+commissions an appraisal at the point of listing, so the platform fills the gap with
+a model-based estimate. The estimate is consequential in both directions. If it is
+too high, the listing stagnates and the platform absorbs the cost of a failed
+transaction and a dissatisfied agent; if it is too low, the seller loses value and
+the platform loses the credibility that makes its estimates worth displaying. The
+operational question is therefore not merely ``what is the price'' but ``what is the
+price, and how much should anyone trust this number''.
+
+Formally, for a property with observable characteristics $\mathbf{x}$ at listing
+time, the product must return a point estimate $\hat{y}(\mathbf{x})$ and an interval
+$[\ell_\alpha(\mathbf{x}), u_\alpha(\mathbf{x})]$ whose empirical coverage is close to
+its nominal level $1-\alpha$. The project treats this as decision support with a
+human in the loop: the model frames the price, and a valuer resolves cases in which
+the model is not confident.
+
+\subsection{Stakeholders and decisions}
+
+Table~\ref{tab:stakeholders} links each stakeholder to the decision the model
+informs and the requirement that decision imposes. Different stakeholders consume
+different outputs: the agent needs a band, the seller needs sensitivity to quality and
+renovation, the buyer needs to know whether an asking price is defensible, operations
+need a publication rule, and the model risk owner needs evidence of continuing
+fitness. That plurality is why the KPI framework mixes statistical, operational and
+economic indicators rather than relying on a single accuracy metric.
+
+\begin{table}[htbp]
+\centering
+\caption{Stakeholders, the decisions supported by the valuation product, and the
+corresponding modelling requirements.}
+\label{tab:stakeholders}
+\small
+\begin{tabularx}{\linewidth}{@{}L{0.19\linewidth}L{0.30\linewidth}X@{}}
+\toprule
+\textbf{Stakeholder} & \textbf{Decision supported} & \textbf{Requirement on the model} \\
+\midrule
+Listing agent & Recommended asking-price band & Point estimate plus a calibrated interval \\
+Seller & Whether to list now or renovate first & Sensitivity to quality, age and renovation \\
+Buyer & Whether an asking price is defensible & Interval coverage and monitored bias \\
+Platform operations & Whether to publish an estimate automatically & Confidence thresholds and escalation policy \\
+Model risk owner & Whether the model remains fit for purpose & Drift and performance monitoring with retraining triggers \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+The workflow follows directly. The agent enters a listing profile; the model returns
+a point estimate with both intervals; high-confidence estimates may be published
+without review; medium and low confidence estimates are routed to a valuer; and a
+monthly monitoring report determines whether the model remains within tolerance. A
+sustained breach opens a retraining ticket (Section~\ref{sec:monitoring}).
+
+\subsection{KPIs, targets and achieved values}
+
+Table~\ref{tab:kpis} states each indicator, its definition, the target agreed before
+modelling and the achieved out-of-fold value on 1,458 cleaned transactions. Two
+design choices require justification. The interval-coverage targets are two-sided,
+because an interval that is too wide satisfies coverage while being operationally
+useless. The over-valuation rate is targeted at a band rather than at zero, because a
+model that systematically predicted below the sale price would score well on a loss
+function that penalises over-valuation more heavily while being commercially
+unacceptable to sellers.
+
+\begin{table}[htbp]
+\centering
+\caption{KPI framework with targets fixed before modelling and achieved values from
+the selected model. Out-of-fold values are computed from five-fold cross-validation
+predictions over 1,458 transactions.}
+\label{tab:kpis}
+\small
+\begin{tabular}{@{}L{0.25\linewidth}L{0.34\linewidth}rr@{}}
+\toprule
+\textbf{Indicator} & \textbf{Definition} & \textbf{Target} & \textbf{Achieved} \\
+\midrule
+RMSE & Root mean squared error (\USD) & $\leq$ 25,000 & 20,019 \\
+MAE & Mean absolute error (\USD) & $\leq$ 17,000 & 13,537 \\
+MAPE & Mean absolute percentage error & $\leq$ 10\% & 7.98\% \\
+$R^2$ & Share of price variance explained & $\geq$ 0.90 & 0.9365 \\
+Absolute hit rate & Share within $\pm$15,000 \USD & $\geq$ 65\% & 69.7\% \\
+Relative hit rate & Share within $\pm$8\% & $\geq$ 60\% & 64.9\% \\
+Coverage, 80\% & Sales inside the 80\% interval & 0.75--0.85 & 0.801 \\
+Coverage, 90\% & Sales inside the 90\% interval & 0.85--0.95 & 0.901 \\
+Over-valuation rate & Share of estimates above the price & 40--60\% & 48.0\% \\
+Mean asymmetric cost & Weighted error per listing (\USD) & monitored & 16,708 \\
+Median asymmetric cost & Weighted error per listing (\USD) & monitored & 11,358 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{The asymmetric cost model}
+
+An over-priced listing is assumed to cost the platform 1.5 times as much as an
+under-priced one, reflecting the observation that a stale, over-priced listing
+consumes marketing attention, fails to transact and damages the agent relationship,
+whereas a conservative estimate costs the seller a smaller and more recoverable
+amount. The loss for one listing is
+
+\begin{equation}
+L(\hat{y}, y) \;=\; 1.5 \cdot \max(\hat{y} - y,\, 0) \;+\; 1.0 \cdot \max(y - \hat{y},\, 0),
+\label{eq:loss}
+\end{equation}
+
+\noindent where $\hat{y}$ is the published estimate and $y$ the realised price. The
+out-of-fold mean of Equation~\eqref{eq:loss} is 16,708 \USD{} per listing with a
+median of 11,358 \USD. The over-valuation rate of 48.0 per cent is close to balanced,
+but the mean signed error is $-853$ \USD, so the model predicts slightly below the
+realised price. That direction is favourable under Equation~\eqref{eq:loss}, but it is
+a by-product rather than an objective: the model minimises squared error in log space
+and the business loss is used only for reporting and for setting review thresholds.
+
+The weights 1.5 and 1.0 are a documented assumption, not an estimated quantity, so
+the reported cost is conditional on them. The team verified that the ranking of the
+eight candidate models is unchanged at weights of 1.0 and 2.0, so selection does not
+depend on the exact asymmetry; the absolute cost figures do. The weights should be
+revisited with the platform's finance function before the loss is used in any
+commercial commitment.
+
+\subsection{Tolerance, escalation and success criteria}
+
+The absolute tolerance of 15,000 \USD{} is approximately the width of a normal
+negotiation margin on the median property of 163,000 \USD, and it defines the
+boundary at which an estimate is treated as agent-ready. The relative tolerance of 8
+per cent matches the mean absolute percentage error of the selected model, so it
+describes delivered accuracy rather than an aspiration. Estimates whose 90 per cent
+interval half-width exceeds 30 per cent of the point estimate are classified as low
+confidence and routed to a valuer.
+
+The project fixed five success criteria at the outset: a pipeline that reproduces
+every artefact from a single command; a model that meets the accuracy and calibration
+targets; an API and console whose outputs agree with the offline evaluation; a
+monitoring report that detects the simulated drift and recommends retraining; and
+documentation of decisions, limitations and business implications. All five are met
+except public deployment, which depends on credentials outside the team's control.
+The risks identified at the start were target leakage, overfitting on a small
+sample, post-deployment shift, segment bias and synthetic-data realism. Each has a
+control: an enforced leakage list (Section~\ref{sec:features}), five-fold
+cross-validation with regularisation (Section~\ref{sec:models}), drift and coverage
+monitoring (Section~\ref{sec:monitoring}), segment-level error reporting and
+documented generation logic (Section~\ref{sec:data}).

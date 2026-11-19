@@ -1,0 +1,46 @@
+{
+  "selected_model": "elastic_net",
+  "selected_model_label": "Elastic net",
+  "metrics": {
+    "rmse": 20018.98937117076,
+    "mae": 13537.19500033221,
+    "mape": 7.979796424228026,
+    "r2": 0.9365397119921259,
+    "median_ae": 9355.715129250988,
+    "rmse_log": 0.11115339811743989,
+    "n": 1458,
+    "within_tolerance_usd": 69.68449931412894,
+    "within_tolerance_pct": 64.88340192043896,
+    "over_valuation_rate": 48.010973936899866,
+    "mean_asymmetric_cost": 16708.32610024658,
+    "median_asymmetric_cost": 11358.059215922927,
+    "total_asymmetric_cost": 24360739.454159513,
+    "model": "elastic_net",
+    "model_label": "Elastic net",
+    "cv_rmse_log": 0.11115339811743989
+  },
+  "conformal": {
+    "0.80": 0.11725157479247461,
+    "0.90": 0.16481756861493368
+  },
+  "temporal_holdout_2010": {
+    "rmse": 22268.540581520057,
+    "mae": 14819.535499079773,
+    "mape": 8.711822540810447,
+    "r2": 0.9229440118606594,
+    "median_ae": 10192.530576793768,
+    "rmse_log": 0.11352760169406857,
+    "n": 175,
+    "within_tolerance_usd": 63.42857142857142,
+    "within_tolerance_pct": 60.0,
+    "over_valuation_rate": 36.0,
+    "mean_asymmetric_cost": 17165.197482787604,
+    "median_asymmetric_cost": 11369.244816141552,
+    "total_asymmetric_cost": 3003909.559487831,
+    "n_train": 1283,
+    "n_test": 175
+  },
+  "n_train": 1458,
+  "n_features": 102,
+  "trained_at": "2026-11-19T13:20:58+00:00"
+}

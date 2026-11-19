@@ -1,0 +1,586 @@
+{
+  "n_train": 1458,
+  "n_test": 1459,
+  "target": {
+    "mean": 180932.91906721535,
+    "median": 163000.0,
+    "std": 79495.05528474765,
+    "min": 34900.0,
+    "max": 755000.0,
+    "skew": 1.8812964895244009,
+    "kurtosis": 6.523066888485879,
+    "skew_log": 0.12156821443516966,
+    "kurtosis_log": 0.804763612901133,
+    "p01": 61788.31,
+    "p99": 442692.2300000004,
+    "iqr_outliers": 61
+  },
+  "neighbourhood": [
+    {
+      "neighborhood": "NridgHt",
+      "listings": 77,
+      "median_price": 315000.0,
+      "mean_price": 316270.6233766234,
+      "median_ppsf": 1700.2383631915218,
+      "amenity": 85.53649350649351,
+      "tier": 5
+    },
+    {
+      "neighborhood": "NoRidge",
+      "listings": 41,
+      "median_price": 301500.0,
+      "mean_price": 335295.31707317074,
+      "median_ppsf": 1379.835340427989,
+      "amenity": 85.68512195121951,
+      "tier": 5
+    },
+    {
+      "neighborhood": "StoneBr",
+      "listings": 25,
+      "median_price": 278000.0,
+      "mean_price": 310499.0,
+      "median_ppsf": 1699.2403209386707,
+      "amenity": 84.83840000000001,
+      "tier": 5
+    },
+    {
+      "neighborhood": "Timber",
+      "listings": 38,
+      "median_price": 228475.0,
+      "mean_price": 242247.44736842104,
+      "median_ppsf": 1442.3449225746403,
+      "amenity": 73.59473684210526,
+      "tier": 4
+    },
+    {
+      "neighborhood": "Somerst",
+      "listings": 86,
+      "median_price": 225500.0,
+      "mean_price": 225379.83720930232,
+      "median_ppsf": 1478.4458818523929,
+      "amenity": 74.33720930232558,
+      "tier": 4
+    },
+    {
+      "neighborhood": "Veenker",
+      "listings": 11,
+      "median_price": 218000.0,
+      "mean_price": 238772.72727272726,
+      "median_ppsf": 1548.0590980900226,
+      "amenity": 74.04,
+      "tier": 4
+    },
+    {
+      "neighborhood": "Crawfor",
+      "listings": 51,
+      "median_price": 200624.0,
+      "mean_price": 210624.72549019608,
+      "median_ppsf": 1243.3565240639755,
+      "amenity": 74.07607843137255,
+      "tier": 4
+    },
+    {
+      "neighborhood": "ClearCr",
+      "listings": 28,
+      "median_price": 200250.0,
+      "mean_price": 212565.42857142858,
+      "median_ppsf": 1284.0519150217308,
+      "amenity": 74.56285714285715,
+      "tier": 4
+    },
+    {
+      "neighborhood": "CollgCr",
+      "listings": 150,
+      "median_price": 197200.0,
+      "mean_price": 197965.77333333335,
+      "median_ppsf": 1447.916825895729,
+      "amenity": 73.48706666666666,
+      "tier": 4
+    },
+    {
+      "neighborhood": "Blmngtn",
+      "listings": 17,
+      "median_price": 191000.0,
+      "mean_price": 194870.88235294117,
+      "median_ppsf": 1475.974043186778,
+      "amenity": 73.43764705882353,
+      "tier": 4
+    },
+    {
+      "neighborhood": "NWAmes",
+      "listings": 73,
+      "median_price": 182900.0,
+      "mean_price": 189050.0684931507,
+      "median_ppsf": 1194.244589620239,
+      "amenity": 63.47342465753425,
+      "tier": 3
+    },
+    {
+      "neighborhood": "Gilbert",
+      "listings": 79,
+      "median_price": 181000.0,
+      "mean_price": 192854.50632911394,
+      "median_ppsf": 1264.6328284306148,
+      "amenity": 73.26253164556962,
+      "tier": 4
+    },
+    {
+      "neighborhood": "SawyerW",
+      "listings": 59,
+      "median_price": 179900.0,
+      "mean_price": 186555.7966101695,
+      "median_ppsf": 1257.1452209690096,
+      "amenity": 62.67728813559322,
+      "tier": 3
+    },
+    {
+      "neighborhood": "Mitchel",
+      "listings": 49,
+      "median_price": 153500.0,
+      "mean_price": 156270.1224489796,
+      "median_ppsf": 1430.658406213555,
+      "amenity": 62.92061224489796,
+      "tier": 3
+    },
+    {
+      "neighborhood": "NPkVill",
+      "listings": 9,
+      "median_price": 146000.0,
+      "mean_price": 142694.44444444444,
+      "median_ppsf": 1196.8952439665773,
+      "amenity": 43.14666666666667,
+      "tier": 1
+    },
+    {
+      "neighborhood": "NAmes",
+      "listings": 225,
+      "median_price": 140000.0,
+      "mean_price": 145847.08,
+      "median_ppsf": 1296.463452520959,
+      "amenity": 63.07613333333333,
+      "tier": 3
+    },
+    {
+      "neighborhood": "SWISU",
+      "listings": 25,
+      "median_price": 139500.0,
+      "mean_price": 142591.36,
+      "median_ppsf": 867.3402623886658,
+      "amenity": 52.7224,
+      "tier": 2
+    },
+    {
+      "neighborhood": "Blueste",
+      "listings": 2,
+      "median_price": 137500.0,
+      "mean_price": 137500.0,
+      "median_ppsf": 1065.2978828165944,
+      "amenity": 58.265,
+      "tier": 3
+    },
+    {
+      "neighborhood": "Sawyer",
+      "listings": 74,
+      "median_price": 135000.0,
+      "mean_price": 136793.13513513515,
+      "median_ppsf": 1299.9220056148133,
+      "amenity": 53.25783783783784,
+      "tier": 2
+    },
+    {
+      "neighborhood": "BrkSide",
+      "listings": 58,
+      "median_price": 124300.0,
+      "mean_price": 124834.05172413793,
+      "median_ppsf": 1086.0432146612357,
+      "amenity": 62.97706896551724,
+      "tier": 3
+    },
+    {
+      "neighborhood": "Edwards",
+      "listings": 98,
+      "median_price": 119500.0,
+      "mean_price": 127318.57142857143,
+      "median_ppsf": 1086.8670038409546,
+      "amenity": 52.87418367346939,
+      "tier": 2
+    },
+    {
+      "neighborhood": "OldTown",
+      "listings": 113,
+      "median_price": 119000.0,
+      "mean_price": 128225.30088495575,
+      "median_ppsf": 991.1014959085791,
+      "amenity": 53.109380530973446,
+      "tier": 2
+    },
+    {
+      "neighborhood": "BrDale",
+      "listings": 16,
+      "median_price": 106000.0,
+      "mean_price": 104493.75,
+      "median_ppsf": 980.882836380254,
+      "amenity": 43.618125,
+      "tier": 1
+    },
+    {
+      "neighborhood": "IDOTRR",
+      "listings": 37,
+      "median_price": 103000.0,
+      "mean_price": 100123.78378378379,
+      "median_ppsf": 975.2540482614941,
+      "amenity": 53.95216216216216,
+      "tier": 2
+    },
+    {
+      "neighborhood": "MeadowV",
+      "listings": 17,
+      "median_price": 88000.0,
+      "mean_price": 98576.4705882353,
+      "median_ppsf": 991.4132283983805,
+      "amenity": 43.55411764705883,
+      "tier": 1
+    }
+  ],
+  "top_correlations": {
+    "positive": {
+      "total_sf": 0.833,
+      "overall_qual": 0.796,
+      "gr_liv_area": 0.735,
+      "total_bsmt_sf": 0.651,
+      "garage_cars": 0.641,
+      "total_bath": 0.636,
+      "first_flr_sf": 0.632,
+      "garage_area": 0.629,
+      "amenity_score": 0.615,
+      "quality_condition_index": 0.567
+    },
+    "negative": {
+      "crime_index": -0.551,
+      "age_at_sale": -0.524,
+      "remod_age": -0.51,
+      "rooms_per_1000sf": -0.441,
+      "dist_transit_km": -0.365,
+      "days_on_market": -0.323,
+      "dist_hospital_km": -0.288,
+      "dist_park_km": -0.281,
+      "dist_school_km": -0.276,
+      "renovation_scope_code": -0.199
+    }
+  },
+  "amenity_spearman": 0.6521068742568872,
+  "amenity_by_tier": {
+    "1": {
+      "mean": 43.49,
+      "std": 4.44,
+      "count": 42
+    },
+    "2": {
+      "mean": 53.14,
+      "std": 5.17,
+      "count": 347
+    },
+    "3": {
+      "mean": 63.04,
+      "std": 4.92,
+      "count": 466
+    },
+    "4": {
+      "mean": 73.76,
+      "std": 4.36,
+      "count": 460
+    },
+    "5": {
+      "mean": 85.46,
+      "std": 4.06,
+      "count": 143
+    }
+  },
+  "price_by_decade": [
+    {
+      "decade": 1870,
+      "median_price": 108000.0,
+      "listings": 2,
+      "median_area": 1689.0
+    },
+    {
+      "decade": 1880,
+      "median_price": 124000.0,
+      "listings": 7,
+      "median_area": 2210.0
+    },
+    {
+      "decade": 1890,
+      "median_price": 142200.0,
+      "listings": 6,
+      "median_area": 2463.0
+    },
+    {
+      "decade": 1900,
+      "median_price": 127000.0,
+      "listings": 15,
+      "median_area": 1699.0
+    },
+    {
+      "decade": 1910,
+      "median_price": 128750.0,
+      "listings": 58,
+      "median_area": 1565.5
+    },
+    {
+      "decade": 1920,
+      "median_price": 115000.0,
+      "listings": 97,
+      "median_area": 1208.0
+    },
+    {
+      "decade": 1930,
+      "median_price": 126500.0,
+      "listings": 54,
+      "median_area": 1334.0
+    },
+    {
+      "decade": 1940,
+      "median_price": 122900.0,
+      "listings": 79,
+      "median_area": 1271.0
+    },
+    {
+      "decade": 1950,
+      "median_price": 136000.0,
+      "listings": 167,
+      "median_area": 1196.0
+    },
+    {
+      "decade": 1960,
+      "median_price": 146000.0,
+      "listings": 175,
+      "median_area": 1253.0
+    },
+    {
+      "decade": 1970,
+      "median_price": 147500.0,
+      "listings": 188,
+      "median_area": 1272.5
+    },
+    {
+      "decade": 1980,
+      "median_price": 178000.0,
+      "listings": 61,
+      "median_area": 1472.0
+    },
+    {
+      "decade": 1990,
+      "median_price": 204000.0,
+      "listings": 163,
+      "median_area": 1716.0
+    },
+    {
+      "decade": 2000,
+      "median_price": 224000.0,
+      "listings": 385,
+      "median_area": 1636.0
+    },
+    {
+      "decade": 2010,
+      "median_price": 394432.0,
+      "listings": 1,
+      "median_area": 1856.0
+    }
+  ],
+  "missing_after_cleaning": {},
+  "outliers_removed_note": "Two training records with more than 4,000 sqft sold below USD 300,000 were removed before modelling; they dominate the least-squares fit and are inconsistent with the local price-per-square-foot distribution.",
+  "shapiro_log_p": 1.2250656073354611e-07,
+  "high_correlation_pairs": [
+    {
+      "left": "gr_liv_area",
+      "right": "total_sf",
+      "correlation": 0.866
+    },
+    {
+      "left": "total_sf",
+      "right": "total_bsmt_sf",
+      "correlation": 0.806
+    },
+    {
+      "left": "first_flr_sf",
+      "right": "total_bsmt_sf",
+      "correlation": 0.804
+    },
+    {
+      "left": "garage_area",
+      "right": "garage_cars",
+      "correlation": 0.887
+    },
+    {
+      "left": "year_built",
+      "right": "age_at_sale",
+      "correlation": -0.999
+    }
+  ],
+  "vif": {
+    "n_initial": 55,
+    "n_retained": 47,
+    "dropped": [
+      {
+        "feature": "amenity_score",
+        "vif_initial": 351.1408280566582,
+        "drop_reason": "Removed at VIF=351.1"
+      },
+      {
+        "feature": "has_pool",
+        "vif_initial": 62.66896370469824,
+        "drop_reason": "Removed at VIF=62.7"
+      },
+      {
+        "feature": "mortgage_rate_pct",
+        "vif_initial": 57.2637516135742,
+        "drop_reason": "Removed at VIF=57.1"
+      },
+      {
+        "feature": "second_flr_sf",
+        "vif_initial": 42.593904406628646,
+        "drop_reason": "Removed at VIF=41.6"
+      },
+      {
+        "feature": "tot_rms_abv_grd",
+        "vif_initial": 41.54113570924712,
+        "drop_reason": "Removed at VIF=11.6"
+      },
+      {
+        "feature": "local_unemployment_pct",
+        "vif_initial": 40.79872914003908,
+        "drop_reason": "Removed at VIF=22.6"
+      },
+      {
+        "feature": "quality_condition_index",
+        "vif_initial": 39.82745062310009,
+        "drop_reason": "Removed at VIF=39.1"
+      },
+      {
+        "feature": "renovation_scope_code",
+        "vif_initial": 13.380758106378849,
+        "drop_reason": "Removed at VIF=13.3"
+      }
+    ],
+    "max_retained_vif": 8.945430548543179
+  },
+  "macro": {
+    "rate_min": 4.673,
+    "rate_max": 6.777,
+    "hpi_start": 100.0,
+    "hpi_end": 95.17,
+    "hpi_trough": 93.69,
+    "supply_max": 8.8
+  },
+  "dom": {
+    "mean": 38.60013717421125,
+    "median": 31.0,
+    "p90": 69.0,
+    "spearman_price": -0.4350514445879933
+  },
+  "price_bands": [
+    {
+      "price_band": "Entry",
+      "listings": 376,
+      "median_price": 110250.0,
+      "median_area": 1040.0,
+      "median_amenity": 55.974999999999994
+    },
+    {
+      "price_band": "Mid",
+      "listings": 655,
+      "median_price": 160000.0,
+      "median_area": 1412.0,
+      "median_amenity": 64.93
+    },
+    {
+      "price_band": "Upper",
+      "listings": 312,
+      "median_price": 235000.0,
+      "median_area": 1790.0,
+      "median_amenity": 73.33000000000001
+    },
+    {
+      "price_band": "Luxury",
+      "listings": 115,
+      "median_price": 345000.0,
+      "median_area": 2234.0,
+      "median_amenity": 82.26
+    }
+  ],
+  "property_type": [
+    {
+      "bldg_type": "TwnhsE",
+      "listings": 114,
+      "median_price": 172200.0,
+      "median_area": 1337.0
+    },
+    {
+      "bldg_type": "1Fam",
+      "listings": 1218,
+      "median_price": 167900.0,
+      "median_area": 1482.0
+    },
+    {
+      "bldg_type": "Twnhs",
+      "listings": 43,
+      "median_price": 137500.0,
+      "median_area": 1306.0
+    },
+    {
+      "bldg_type": "Duplex",
+      "listings": 52,
+      "median_price": 135980.0,
+      "median_area": 1660.0
+    },
+    {
+      "bldg_type": "2fmCon",
+      "listings": 31,
+      "median_price": 127500.0,
+      "median_area": 1387.0
+    }
+  ],
+  "house_style": [
+    {
+      "house_style": "2.5Fin",
+      "listings": 8,
+      "median_price": 194000.0
+    },
+    {
+      "house_style": "2Story",
+      "listings": 443,
+      "median_price": 190000.0
+    },
+    {
+      "house_style": "SLvl",
+      "listings": 65,
+      "median_price": 164500.0
+    },
+    {
+      "house_style": "1Story",
+      "listings": 726,
+      "median_price": 154750.0
+    },
+    {
+      "house_style": "SFoyer",
+      "listings": 37,
+      "median_price": 135960.0
+    },
+    {
+      "house_style": "2.5Unf",
+      "listings": 11,
+      "median_price": 133900.0
+    },
+    {
+      "house_style": "1.5Fin",
+      "listings": 154,
+      "median_price": 132000.0
+    },
+    {
+      "house_style": "1.5Unf",
+      "listings": 14,
+      "median_price": 111250.0
+    }
+  ]
+}

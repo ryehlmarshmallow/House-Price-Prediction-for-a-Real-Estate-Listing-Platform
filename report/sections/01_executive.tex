@@ -1,0 +1,43 @@
+% ---------------------------------------------------------------------------
+\section{Executive Summary}
+% ---------------------------------------------------------------------------
+
+This project delivers a valuation capability for a residential listing platform in
+Ames, Iowa. At the moment a property is listed, the platform must display a price
+and indicate how much confidence an agent or buyer should place in it. The answer is
+produced by a regularised regression model on the logarithm of sale price, wrapped in
+a calibrated prediction interval, exposed through an application programming
+interface (API) and a browser console, and surrounded by a monitoring layer that
+compares incoming listing populations with the training population and tracks
+realised error once sale prices arrive.
+
+
+
+Table~\ref{tab:kpis} in Section~\ref{sec:business} sets out the KPI framework with
+targets and achieved values; the headline numbers are repeated here. The selected
+model explains 93.7 per cent of out-of-fold price variance and prices a
+typical property within 13,537 \USD{} of its realised value. Nearly 70 per cent of
+estimates fall inside the 15,000 \USD{} tolerance band that the business case treats
+as the threshold for an agent-ready estimate, and the conformal intervals are
+calibrated almost exactly at their nominal levels. Performance is stable when the
+model is refitted on 2006--2009 sales and applied to 2010 sales, the closest
+available approximation to genuine forward deployment.
+
+Three findings shape how the product should be used. First, the simplest regularised
+linear model outperformed both gradient-boosted trees and a random forest: with 1,458
+transactions and a dense set of well-measured attributes, the variance cost of
+flexible learners exceeds the bias they remove \citep{hastie2009esl}. Second,
+accuracy and calibration are separate objectives. The model remains accurate
+throughout the monitoring replay, yet its 90 per cent interval covers only 79.7 per
+cent of sales in the final window, because the macro-financial context moves outside
+the reference sample; a point-estimate dashboard would not have detected this.
+Third, error is not uniform: the luxury band above 300,000 \USD{} is under-predicted
+by 3.9 per cent with a mean absolute error of 31,238 \USD, more than three times that
+of the entry band.
+
+The deployment is verified locally rather than publicly. The API, console and
+monitoring report run end to end against the trained artefacts and are containerised,
+and the Render and Hugging Face configurations are complete. No cloud credentials
+were available, so no public URL is claimed anywhere in this report. This is a
+delivery constraint, not an analytical one, and Section~\ref{sec:deployment} states
+exactly what remains for the account owner.

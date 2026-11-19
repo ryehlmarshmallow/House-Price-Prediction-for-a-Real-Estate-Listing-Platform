@@ -1,0 +1,101 @@
+% ---------------------------------------------------------------------------
+\section{Feature Engineering}
+\label{sec:features}
+% ---------------------------------------------------------------------------
+
+\subsection{Derived features and the log target}
+
+Eighteen derived variables are computed from the cleaned table. Every one is
+row-wise, so the identical transformation applies to a single listing at inference
+time and no train--serve skew is possible. Table~\ref{tab:engineered} groups them by
+business purpose. The composites exist because several raw attributes measure the
+same underlying quantity: usable area is the sum of basement, first-floor and
+second-floor area, and bathroom provision is better summarised by a weighted count
+that treats a half bathroom as half a full one. Age is expressed as age at sale and
+years since remodelling rather than as construction years, because an agent reasons
+about how old a house is, not about the calendar year in which it was built.
+
+\begin{table}[htbp]
+\centering
+\caption{Engineered features by business purpose. The first sixteen are model inputs;
+the last two are analysis variables and are excluded from the model matrix.}
+\label{tab:engineered}
+\small
+\begin{tabularx}{\linewidth}{@{}L{0.18\linewidth}L{0.36\linewidth}X@{}}
+\toprule
+\textbf{Family} & \textbf{Features} & \textbf{Rationale} \\
+\midrule
+Floor area & \f{total\_sf}, \f{total\_porch\_sf} & Usable covered area; aggregate outdoor amenity space \\
+Bathrooms & \f{total\_bath} & Full-bathroom equivalents in one count \\
+Age and renovation & \f{age\_at\_sale}, \f{remod\_age}, \f{is\_renovated}, \f{renovation\_scope\_code} & Depreciation and vintage; depth of the last permitted renovation \\
+Presence flags & \f{has\_pool}, \f{has\_garage}, \f{has\_fireplace}, \f{has\_second\_floor} & Separates absence of an amenity from a small amount of it \\
+Ratios & \f{liv\_area\_ratio}, \f{garage\_area\_ratio}, \f{rooms\_per\_1000sf}, \f{avg\_room\_size} & Development intensity; layout spaciousness \\
+Quality & \f{quality\_condition\_index} & Joint effect of quality and maintenance condition \\
+Analysis only & \f{price\_per\_sqm}, \f{log\_price} & Reporting metric and target; both use the price and are never inputs \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+The model is trained on $\log(1 + \text{SalePrice})$. The transformation reduces
+skewness from 1.881 to 0.122, it matches the multiplicative structure of housing
+prices, and it stabilises the variance of expensive observations so that a 700,000
+\USD{} house does not dominate the fit. It also has a consequence that is often
+overlooked: because the exponential of a mean log price is not the mean price,
+back-transforming with $\exp(\hat{\mu}) - 1$ estimates a conditional median and is
+biased low by roughly half the residual variance unless a smearing correction is
+applied \citep{hastie2009esl}. No smearing correction is applied here. The
+consequence is visible in the diagnostics: the mean signed error is $-853$ \USD, so
+the model predicts slightly below the realised price on average. Given that
+over-valuation is weighted more heavily in Equation~\eqref{eq:loss}, the direction is
+commercially convenient, but the report presents it as a bias rather than as
+accuracy.
+
+\subsection{Encoding, selection and collinearity}
+
+Numerical inputs are median-imputed and standardised; categorical inputs are imputed
+with the most frequent level and one-hot encoded with a minimum frequency of ten
+observations, so rare levels are grouped instead of producing indicators estimated on
+a handful of rows. Unseen levels at inference time are ignored rather than treated as
+errors. Tree learners use either the same one-hot matrix without scaling or
+LightGBM's native categorical handling, so preprocessing is part of the fitted
+pipeline and is identical offline and online. After encoding the matrix contains 102
+inputs: 40 categorical, 29 structural, 12 structural composites, 10 neighbourhood, 5
+macro-financial, 2 locational and 4 age or renovation variables.
+
+Selection proceeds in three steps. Four uninformative columns are removed because
+they are constant or almost constant in the sample: street type, utilities, pool
+quality and the raw renovation flag, which duplicates the engineered
+\f{is\_renovated} flag. A second step applies the leakage policy described below.
+The third measures multicollinearity on the 55-feature identifiable numeric core, and
+this step repays attention. The deliberate algebraic composites are excluded from the
+computation, because including a composite together with its components would make
+the design rank-deficient and produce infinite factors that say nothing about the
+data. The remaining core is pruned iteratively: the feature with the largest factor
+above ten is removed, factors are recomputed, and the process repeats until none
+exceeds the threshold. Eight features are removed and 47 are retained, with a maximum
+retained factor of 8.95 for garage area as a share of lot area. The eight removed features begin with the amenity score
+(351.1), which is almost a linear combination of the distances, ratings and crime
+variables from which it was composed, and continue with \f{has\_pool} (62.7),
+\f{mortgage\_rate\_pct} (57.3), \f{second\_flr\_sf} (42.6), \f{tot\_rms\_abv\_grd}
+(41.5), \f{local\_unemployment\_pct} (40.8), \f{quality\_condition\_index} (39.8)
+and \f{renovation\_scope\_code} (13.4).
+
+
+
+The pruning is a diagnostic of redundancy, not a filter applied to the model matrix.
+Features such as the number of rooms above grade and the quality--condition index
+remain inputs, and the regularised linear model handles their collinearity by
+shrinking and distributing coefficient mass across correlated variables. The
+practical implication is interpretive: individual coefficients on collinear features
+must not be read as independent effects, which is why the report relies on grouped
+SHAP shares rather than on raw coefficient magnitudes.
+
+The leakage exclusion list is enforced in configuration and asserted by the test
+suite. It removes direct functions of the target (\f{SalePrice}, \f{log\_price},
+\f{price\_per\_sqm}); variables recorded only after the transaction closes
+(\f{sale\_condition}, \f{sale\_type}); marketing outcomes (\f{days\_on\_market},
+\f{listing\_date}); sale timing replaced by the macro context (\f{sale\_year},
+\f{sale\_month}, \f{yr\_sold}, \f{mo\_sold}); and identifiers. The most consequential
+exclusion is days on market. It is plausibly predictive, with a Spearman correlation
+of $-0.435$ with price, but it is observed only after a listing has sold and is
+therefore unavailable when the estimate is produced.

@@ -1,0 +1,29 @@
+services:
+  - type: web
+    name: ames-valuation-api
+    runtime: docker
+    plan: free
+    region: oregon
+    dockerfilePath: ./deploy/Dockerfile.api
+    dockerContext: .
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: PORT
+        value: "8000"
+
+  - type: web
+    name: ames-valuation-app
+    runtime: docker
+    plan: free
+    region: oregon
+    dockerfilePath: ./deploy/Dockerfile.app
+    dockerContext: .
+    healthCheckPath: /
+    autoDeploy: true
+    envVars:
+      - key: PORT
+        value: "8501"
+      # Replace with the public URL of the API service after the first deploy.
+      - key: VALUATION_API_URL
+        value: https://ames-valuation-api.onrender.com
